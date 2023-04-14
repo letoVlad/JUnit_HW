@@ -30,18 +30,12 @@ class UserTest {
     @DisplayName("Корректный Е-майл")
     @Test
     void testCorrectEmailUser() {
-        User user1 = new User("Test1", "John@examplecom");
-        User user2 = new User("Test2", "John@example.com");
-        assertFalse(user1.isValidEmail(user1.getEmail()), "Е-майл не имеет '@' или '.' ");
-        assertTrue(user2.isValidEmail(user2.getEmail()), "Е-майл не имеет '@' или '.' ");
+        assertThrows(IllegalArgumentException.class, () -> new User("Jong", "123qasdd.ru"));
     }
-
 
     @DisplayName("Е-майл != логин ")
     @Test
-    public void testIsEqualsEmailAndName() {
-        user = new User("johwn@example.com", "John@example.com");
-        assertTrue(user.isEqualsEmailAndName("John@example.com", user.getName()), "Имейл и логин одинаковые");
-        assertTrue(user.isEqualsEmailAndName("johndoe@example.com", user.getName()), "Имейл и логин одинаковые");
+    void testEmailNotEqualToName() {
+        assertThrows(RuntimeException.class, () -> new User("John@example.com", "John@example.com"));
     }
 }
