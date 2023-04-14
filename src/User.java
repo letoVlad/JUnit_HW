@@ -3,12 +3,21 @@ public class User {
     private String email;
 
     public User(String name, String email) {
+        // Проверяем, что email соответствует формату
+        if (!email.contains("@") && email.contains(".")) {
+            throw new IllegalArgumentException("Некорректный email: " + email);
+        }
+
+        // Проверяем, что email не совпадает с именем пользователя
+        if (email.equalsIgnoreCase(name)) {
+            throw new RuntimeException("Email не может совпадать с именем пользователя");
+        }
+
         this.name = name;
         this.email = email;
     }
 
-    public User() {
-    }
+    public User() {}
 
     public String getName() {
         return name;
@@ -25,14 +34,4 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public boolean isValidEmail(String email) {
-        return email.contains("@") && email.contains(".");
-    }
-
-    boolean isEqualsEmailAndName(String email, String name) {
-        return !email.equalsIgnoreCase(name);
-    }
-
-
 }
